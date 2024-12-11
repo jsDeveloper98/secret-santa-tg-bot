@@ -3,6 +3,7 @@ import { Telegraf } from "telegraf";
 import { Command } from "./command";
 import { IBotContext } from "../types/common";
 import { SharedService } from "../services/shared.service";
+import { isNicknameAvailable, showNicknamePrompt } from "../utils/common";
 
 export class StartCommands extends Command {
   private sharedService = SharedService.getInstance();
@@ -13,14 +14,8 @@ export class StartCommands extends Command {
 
   handle(): void {
     this.bot.start((ctx) => {
-      const username =
-        ctx.from.username || ctx.from.first_name || "Unknown User";
-
-      if (!ctx.session.nickname) {
-        ctx.reply(
-          `Hi ${username}! 🎅\nPlease set your nickname by typing it below:`
-        );
-        ctx.session.awaitingNickname = true;
+      if (!isNicknameAvailable(ctx)) {
+        showNicknamePrompt(ctx);
       } else {
         this.sharedService.showOptionsMenu(ctx, "Choose an option:");
       }

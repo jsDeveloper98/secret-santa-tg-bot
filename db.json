@@ -1,12 +1,69 @@
 [
   {
-    "user": "Setka719",
-    "nickname": "Rob",
+    "user": "Strange718",
+    "nickname": "Hovo",
+    "present": [
+      "Sportayin payusak sev guyni mech"
+    ]
+  },
+  {
+    "user": "Raf",
+    "nickname": "Raf",
+    "present": [
+      "Marshall Headphones"
+    ]
+  },
+  {
+    "user": "Arar017",
+    "nickname": "A",
     "present": []
   },
   {
-    "user": "Strange718",
-    "nickname": "Hovo",
+    "user": "David",
+    "nickname": "Davit",
+    "present": [
+      "Headphones",
+      "Bluetooth speaker"
+    ]
+  },
+  {
+    "user": "Artur",
+    "nickname": "Banvor",
+    "present": []
+  },
+  {
+    "user": "khach007",
+    "nickname": "Khach007",
+    "present": []
+  },
+  {
+    "user": "Rob_RM",
+    "nickname": "Reced",
+    "present": [
+      "Ayrman Momik (Svecha)",
+      "Anlar Naushnik"
+    ]
+  },
+  {
+    "user": "Sas_Kirakosyan",
+    "nickname": "Sas",
+    "present": []
+  },
+  {
+    "user": "Hovsepyan21",
+    "nickname": "Gagik_Hovsepyan",
+    "present": [
+      "FTN"
+    ]
+  },
+  {
+    "user": "mandrasyan",
+    "nickname": "Mushegh",
+    "present": []
+  },
+  {
+    "user": "vardapetyan",
+    "nickname": "Koryun",
     "present": []
   }
 ]

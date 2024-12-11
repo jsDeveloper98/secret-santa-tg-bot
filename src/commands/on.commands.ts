@@ -3,6 +3,11 @@ import { Telegraf } from "telegraf";
 import { Command } from "./command";
 import { IBotContext, ICTX } from "../types/common";
 import { SharedService } from "../services/shared.service";
+import {
+  getUser,
+  showNicknamePrompt,
+  isNicknameAvailable,
+} from "../utils/common";
 
 interface PresentRequest {
   user: string;
@@ -18,18 +23,23 @@ export class OnCommands extends Command {
   }
 
   private async handlePresentRequest(ctx: ICTX): Promise<void> {
-    this.sharedService.globalWishList.forEach((item) => {
-      if (item.user === ctx.from.username) {
-        item.present.push(ctx.message.text);
-      }
-    });
+    if (!isNicknameAvailable(ctx)) {
+      showNicknamePrompt(ctx);
+    } else {
+      const textWithoutDots = ctx.message.text.replace(/\./g, "");
+      this.sharedService.globalWishList.forEach((item) => {
+        if (item.user === getUser(ctx)) {
+          item.present.push(textWithoutDots);
+        }
+      });
 
-    this.sharedService.saveGlobalWishList();
-    ctx.session.awaitingPresent = false;
-    this.sharedService.showOptionsMenu(
-      ctx,
-      `Got it! 🎁 I'll add "${ctx.message.text}" to the list. \nChoose an option:`
-    );
+      this.sharedService.saveGlobalWishList();
+      ctx.session.awaitingPresent = false;
+      this.sharedService.showOptionsMenu(
+        ctx,
+        `Got it! 🎁 I'll add "${textWithoutDots}" to the list. \nChoose an option:`
+      );
+    }
   }
 
   private handleNicknameRequest(ctx: ICTX): void {
@@ -43,9 +53,9 @@ export class OnCommands extends Command {
     const nickname = ctx.message.text;
     if (!userExists) {
       const newUser: PresentRequest = {
-        user: ctx.from.username || ctx.from.first_name || "Unknown User",
         nickname,
         present: [],
+        user: getUser(ctx),
       };
       this.sharedService.globalWishList.push(newUser);
     }
